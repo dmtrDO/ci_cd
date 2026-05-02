@@ -1,40 +1,50 @@
 
+# код для тестування взятий з іншої дисципліни 
+# (технології для збору та обробки даних)
+# https://github.com/dmtrDO/data/tree/main/pr-1
+
 on: [push]
 
 jobs:
   tasks:
-    # запускатись буде на віртуальній машині з найновішим ОС Ubuntu
+    # запускатись буде на віртуальній 
+    # машині з найновішим ОС Ubuntu
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # 3. Мультиверсійне тестування
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
     - name: checkout code
       # завантаження репозиторію на віртуальну машину
       uses: actions/checkout@v4
 
-    - name: set up python
+    - name: task 3
       # завантаження потрібної версії пайтону
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        # 3. Мультиверсійне тестування
+        python-version: ${{ matrix.python-version }}
   
     - name: install dependencies
       # завантаження залежностей
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        
-###########################################################################
-###########################################################################
 
-    - name: task 1
+    - name: task 1 # 1. Автоматичне тестування з Pytest
       run: |
         pip install pytest
         pytest test.py
     
-    - name: task 2
+    - name: task 2 # 2. Перевірка стилю коду (Linting)
       # для перевірки стилю коди завантажимо flake8
       run: |
         pip install flake8
         flake8 . --count --exit-zero --statistics
 
-
+    
+      
+        
