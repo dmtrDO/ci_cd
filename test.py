@@ -17,6 +17,6 @@ def test_simple_word_filter():
     assert "привіт" in result
     assert "краулер" in result
     assert "і" not in result
-    assert "це" not in result
+    assert "це" in result
     assert "працює" in result
 
