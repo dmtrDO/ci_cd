@@ -50,4 +50,18 @@ jobs:
         docker build -t my-crawler-app .
         echo "Docker image build successfully!"
       
+    - name: task 5 # 5. Автоматичний HTML-звіт
+        # створюємо звіт навіть якщо тести впали
+      if: always()
+      run: | # використаєво для звітів pytest-html
+        pip install pytest-html
+        pytest test.py --html=report.html --self-contained-html
+
+    - name: upload report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-report-python-${{ matrix.python-version }}
+        path: report.html
+
         
