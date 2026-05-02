@@ -9,17 +9,6 @@ import asyncio, aiohttp, re, random
 from mysql.connector.aio import connect
 from collections import Counter
 
-import os
-
-
-
-
-
-
-
-
-
-
 
 class Crawler():
 	def __init__(self, seed_urls, headers, async_workers, max_pages, add_link):
